@@ -49,10 +49,20 @@ body {
     transition: background 0.3s;
   }
   
+  .convert-button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+  }
+
   .convert-button:hover {
     background-color: #0056b3;
   }
   
+  .loading-text {
+    font-size: 16px;
+    color: orange;
+  }  
+
   /* Output Image */
   .output-container {
     margin-top: 20px;
@@ -61,6 +71,7 @@ body {
   .output-image {
     width: 100%;
     max-width: 300px;
+    height: auto;
     border-radius: 5px;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
   }
