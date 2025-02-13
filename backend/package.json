@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "postinstall": "npm install --cpu=x64 --os=linux sharp"
+    "postinstall": "npm install --cpu=x64 --os=linux sharp express"
   },
   "keywords": [],
   "author": "",
