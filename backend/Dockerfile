@@ -24,4 +24,4 @@ RUN npm install --omit=dev --include=optional sharp
 COPY . /app
 
 # Start the server
-RUN node server.js
+CMD [ "node", "server.js" ] 
