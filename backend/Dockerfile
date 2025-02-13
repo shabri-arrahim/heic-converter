@@ -1,5 +1,4 @@
 # Use Node.js official image
-# Use an official lightweight Node.js image
 FROM node:20-bullseye
 
 # Install dependencies for libvips and libheif
@@ -17,11 +16,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # Set working directory
 WORKDIR /app
 
-COPY package*.json /app/
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
-RUN npm install --omit=dev --include=optional sharp
+# Install all dependencies
+RUN npm install
 
-COPY . /app
+# Copy the rest of the application code
+COPY . .
 
 # Start the server
-CMD [ "node", "server.js" ] 
+CMD ["node", "server.js"]
