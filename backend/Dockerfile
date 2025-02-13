@@ -23,4 +23,4 @@ RUN npm install
 COPY . /app
 
 # Start the server
-CMD ["node", "server.js"]
+RUN node server.js
