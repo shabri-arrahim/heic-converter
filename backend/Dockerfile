@@ -2,25 +2,25 @@
 FROM node:20
 
 # Install dependencies for libvips and libheif
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     libvips-dev \
     libheif-dev \
-    && rm -rf /var/lib/apt/lists/*
+    build-essential \
+    pkg-config \
+    libglib2.0-dev \
+    libexpat1-dev \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean \
+    && rm -rf /tmp/*
 
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
+COPY package*.json /app/
 
-# Install Node.js dependencies
 RUN npm install
 
-# Copy the rest of the application
-COPY . .
-
-# Expose the server port
-EXPOSE 8000
+COPY . /app
 
 # Start the server
 CMD ["node", "server.js"]
