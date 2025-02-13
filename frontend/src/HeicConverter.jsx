@@ -6,6 +6,7 @@ export default function HeicConverter() {
   const [format, setFormat] = useState('jpeg');
   const [width, setWidth] = useState(800);
   const [convertedImage, setConvertedImage] = useState(null);
+  const [loading, setLoading] = useState(false);
   
   const handleFileChange = (e) => setFile(e.target.files[0]);
   const handleFormatChange = (e) => setFormat(e.target.value);
@@ -13,6 +14,9 @@ export default function HeicConverter() {
   
   const handleUpload = async () => {
     if (!file) return alert('Please select a file.');
+
+    setLoading(true); // Start loading
+    setConvertedImage(null); // Clear previous image
   
     const formData = new FormData();
     formData.append('file', file);
@@ -32,6 +36,8 @@ export default function HeicConverter() {
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to convert image.");
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
   
@@ -39,14 +45,17 @@ export default function HeicConverter() {
   return (
     <div className="container">
       <h2>HEIC Image Converter</h2>
-      <input type="file" accept=".heic" onChange={handleFileChange} className="input-file" />
+      <input type="file" accept="image/heic" onChange={handleFileChange} className="input-file" />
       <select value={format} onChange={handleFormatChange} className="select-format">
         <option value="jpeg">JPEG</option>
         <option value="png">PNG</option>
         <option value="webp">WebP</option>
       </select>
       <input type="number" value={width} onChange={handleWidthChange} className="input-width" />
-      <button onClick={handleUpload} className="convert-button">Convert</button>
+      <button onClick={handleConvert} className="convert-button" disabled={loading}>
+        {loading ? 'Processing...' : 'Convert'}
+      </button>
+      {loading && <p className="loading-text">Converting image, please wait...</p>}
       {convertedImage && (
         <div className="output-container">
           <h3>Converted Image:</h3>
