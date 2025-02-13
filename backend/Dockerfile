@@ -1,6 +1,6 @@
 # Use Node.js official image
 # Use an official lightweight Node.js image
-FROM node:20-bullseye-slim
+FROM node:20-bullseye
 
 # Install dependencies for libvips and libheif
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -19,7 +19,7 @@ WORKDIR /app
 
 COPY package*.json /app/
 
-RUN npm install --include=optional
+RUN npm install --omit=dev --include=optional sharp
 
 COPY . /app
 
