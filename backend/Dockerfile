@@ -15,14 +15,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgif-dev \
     libde265-dev \
     libheif-dev \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Install latest libvips from source (8.16.0)
+# Install latest libvips from source (8.16.0) using Meson
 RUN curl -fsSL https://github.com/libvips/libvips/releases/download/v8.16.0/vips-8.16.0.tar.xz | tar xJ \
     && cd vips-8.16.0 \
-    && ./configure --prefix=/usr --enable-shared \
-    && make -j$(nproc) \
-    && make install \
+    && meson setup build \
+    && ninja -C build \
+    && ninja -C build install \
     && ldconfig \
     && cd .. && rm -rf vips-*
 
