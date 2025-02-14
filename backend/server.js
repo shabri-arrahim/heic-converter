@@ -8,7 +8,7 @@ const upload = multer();
 
 app.use(express.json());
 
-app.post('/convert', upload.single('file'), async (req, res) => {
+app.post('/api/convert', upload.single('file'), async (req, res) => {
     try {
         const { format, width } = req.body;
         const buffer = req.file.buffer;
