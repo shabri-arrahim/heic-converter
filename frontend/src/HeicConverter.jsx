@@ -24,7 +24,7 @@ export default function HeicConverter() {
     formData.append('width', width);
   
     try {
-      const response = await fetch('http://heic-backend:8000/api/convert', {
+      const response = await fetch('/api/convert', {  // Use relative URL
         method: 'POST',
         body: formData,
       });
