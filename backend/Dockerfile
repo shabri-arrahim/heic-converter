@@ -3,8 +3,8 @@ FROM node:20-bullseye
 
 # Install dependencies for libvips and libheif
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libvips-dev \
-    libheif-dev \
+    libvips \
+    libheif1 \
     build-essential \
     pkg-config \
     libglib2.0-dev \
