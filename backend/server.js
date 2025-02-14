@@ -6,10 +6,15 @@ const app = express();
 const PORT = 8000;
 const upload = multer();
 
+// Ensure Express trusts the proxy headers (important for Cloudflare)
+app.set('trust proxy', true);
+
 app.use(express.json());
 
 app.post('/api/convert', upload.single('file'), async (req, res) => {
     try {
+        console.log('Incoming Request:', req.hostname, req.headers);
+
         const { format, width } = req.body;
         const buffer = req.file.buffer;
 
@@ -28,4 +33,5 @@ app.post('/api/convert', upload.single('file'), async (req, res) => {
     }
 });
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+// Start the server
+app.listen(PORT, () => console.log(`Server running on http://0.0.0.0:${PORT}`));
