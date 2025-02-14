@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgif-dev \
     libde265-dev \
     libheif-dev \
+    libheif-examples \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
