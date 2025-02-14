@@ -34,7 +34,7 @@ export default function HeicConverter() {
       if (!response.ok) throw new Error("Conversion failed");
   
       const blob = await response.blob();
-      setConvertedImage(URL.createObjectURL(blob));
+      setConvertedImage(data.image);
     } catch (error) {
       console.error("Error:", error);
       alert("Failed to convert image.");
