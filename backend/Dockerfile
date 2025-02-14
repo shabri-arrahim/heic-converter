@@ -1,20 +1,30 @@
 # Use Node.js official image
 FROM node:20-bullseye
 
-# Install dependencies for libvips and libheif
+# Install dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libvips \
-    libvips-dev \
-    libvips-tools \
-    libheif-dev \
-    libde265-dev \
     build-essential \
+    meson \
+    ninja-build \
     pkg-config \
     libglib2.0-dev \
     libexpat1-dev \
-    && rm -rf /var/lib/apt/lists/* \
-    && apt-get clean \
-    && rm -rf /tmp/*
+    libjpeg-dev \
+    libpng-dev \
+    libtiff-dev \
+    libgif-dev \
+    libde265-dev \
+    libheif-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install latest libvips from source (8.14+)
+RUN curl -fsSL https://github.com/libvips/libvips/releases/download/v8.14.1/vips-8.14.1.tar.gz | tar xz \
+    && cd vips-8.14.1 \
+    && ./configure --prefix=/usr --enable-shared \
+    && make -j$(nproc) \
+    && make install \
+    && ldconfig \
+    && cd .. && rm -rf vips-*
 
 # Set working directory
 WORKDIR /app
