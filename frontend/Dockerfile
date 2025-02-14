@@ -15,3 +15,4 @@ COPY --from=build-stage /app/dist /usr/share/nginx/html
 
 COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 COPY ./nginx-backend-not-found.conf /etc/nginx/extra-conf.d/nginx-backend-not-found.conf
+COPY ./nginx-extra.conf /etc/nginx/extra-conf.d/nginx-extra.conf
