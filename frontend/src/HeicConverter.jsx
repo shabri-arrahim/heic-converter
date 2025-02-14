@@ -33,7 +33,7 @@ export default function HeicConverter() {
   
       if (!response.ok) throw new Error("Conversion failed");
   
-      const blob = await response.blob();
+      const data = await response.json();
       setConvertedImage(data.image);
     } catch (error) {
       console.error("Error:", error);
