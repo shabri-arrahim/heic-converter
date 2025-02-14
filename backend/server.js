@@ -18,22 +18,23 @@ app.get('/api/health', (req, res) => {
 });
 
 // Image conversion endpoint
-app.post('/api/convert', upload.single('file'), async (req, res) => {
+app.post('/api/convert', upload.array('files'), async (req, res) => {
     try {
-        if (!req.file) {
-            return res.status(400).json({ error: 'No file uploaded' });
+        if (!req.files || req.files.length === 0) {
+            return res.status(400).json({ error: 'No files uploaded' });
         }
-        
+
         const { format, width } = req.body;
-        const buffer = req.file.buffer;
+        const convertedImages = await Promise.all(req.files.map(async (file) => {
+            const buffer = file.buffer;
+            const convertedBuffer = await sharp(buffer)
+                .resize(parseInt(width) || 800)
+                .toFormat(format)
+                .toBuffer();
+            return `data:image/${format};base64,${convertedBuffer.toString('base64')}`;
+        }));
 
-        const convertedBuffer = await sharp(buffer)
-            .resize(parseInt(width) || 800)
-            .toFormat(format)
-            .toBuffer();
-
-        const base64Image = `data:image/${format};base64,${convertedBuffer.toString('base64')}`;
-        res.json({ image: base64Image });
+        res.json({ images: convertedImages });
 
     } catch (error) {
         res.status(500).json({ error: 'Conversion failed', details: error.message });
