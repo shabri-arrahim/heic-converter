@@ -19,8 +19,9 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
-# Install all dependencies
-RUN npm install
+# Force sharp to use system-installed libvips
+RUN npm install --verbose --ignore-scripts \
+    && npm rebuild sharp --verbose --with-libvips
 
 # Copy the rest of the application code
 COPY . .
