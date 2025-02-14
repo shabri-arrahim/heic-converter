@@ -3,20 +3,24 @@ version: '3.8'
 services:
   backend:
     build: ./backend
-    # volumes:
-    #   - ./backend:/app
     container_name: heic-backend
     environment:
       - NODE_ENV=production
     restart: unless-stopped
+    networks:
+      - heic-network
 
   frontend:
     build: ./frontend
-    # volumes:
-    #   - ./frontend:/app
     container_name: heic-frontend
     environment:
       - NODE_ENV=development
     restart: unless-stopped
     depends_on:
       - backend
+    networks:
+      - heic-network
+
+networks:
+  heic-network:
+    driver: bridge
