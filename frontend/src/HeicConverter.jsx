@@ -28,6 +28,8 @@ export default function HeicConverter() {
         method: 'POST',
         body: formData,
       });
+
+      console.log(response)
   
       if (!response.ok) throw new Error("Conversion failed");
   
