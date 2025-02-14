@@ -12,7 +12,7 @@ export default function HeicConverter() {
   const handleFormatChange = (e) => setFormat(e.target.value);
   const handleWidthChange = (e) => setWidth(e.target.value);
   
-  const handleUpload = async () => {
+  const handleConvert = async () => {
     if (!file) return alert('Please select a file.');
 
     setLoading(true); // Start loading
