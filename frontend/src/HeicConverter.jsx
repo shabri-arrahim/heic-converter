@@ -16,13 +16,13 @@ export default function HeicConverter() {
   };
   
   const handleConvert = async () => {
-    if (!files) return alert('Please select a file.');
+    if (!files.length) return alert('Please select a file.');
 
     setLoading(true); // Start loading
     setConvertedImages([]); // Clear previous image
   
     const formData = new FormData();
-    formData.append('files', files);
+    files.forEach(file => formData.append('files', file));
     formData.append('format', format);
     formData.append('width', width);
   

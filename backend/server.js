@@ -5,6 +5,7 @@ const sharp = require('sharp');
 const app = express();
 const PORT = 8000;
 const upload = multer({ 
+    storage: multer.memoryStorage(), // Use memory storage to get file buffer
     limits: { fileSize: 50 * 1024 * 1024 } // 50MB limit
 });
 
