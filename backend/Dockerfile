@@ -17,9 +17,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libheif-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Install latest libvips from source (8.14+)
-RUN curl -fsSL https://github.com/libvips/libvips/releases/download/v8.16.0/vips-8.16.0.tar.xz | tar xz \
-    && cd vips-8.16.0.tar.xz \
+# Install latest libvips from source (8.16.0)
+RUN curl -fsSL https://github.com/libvips/libvips/releases/download/v8.16.0/vips-8.16.0.tar.xz | tar xJ \
+    && cd vips-8.16.0 \
     && ./configure --prefix=/usr --enable-shared \
     && make -j$(nproc) \
     && make install \
