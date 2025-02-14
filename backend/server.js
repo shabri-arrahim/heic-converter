@@ -11,6 +11,10 @@ app.set('trust proxy', true);
 
 app.use(express.json());
 
+app.get('/api/', (req, res) => {
+    res.send('Welcome to the HEIC Converter API');
+});
+
 app.post('/api/convert', upload.single('file'), async (req, res) => {
     try {
         console.log('Incoming Request:', req.hostname, req.headers);
