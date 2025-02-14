@@ -4,7 +4,10 @@ const sharp = require('sharp');
 
 const app = express();
 const PORT = 8000;
-const upload = multer();
+const upload = multer({ 
+    limits: { fileSize: 50 * 1024 * 1024 } // 50MB limit
+});
+
 
 app.set('trust proxy', true);
 app.use(express.json());
