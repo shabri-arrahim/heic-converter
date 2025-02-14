@@ -3,8 +3,8 @@ version: '3.8'
 services:
   backend:
     build: ./backend
-    volumes:
-      - ./backend:/app
+    # volumes:
+    #   - ./backend:/app
     container_name: backend
     environment:
       - NODE_ENV=production
@@ -12,8 +12,8 @@ services:
 
   frontend:
     build: ./frontend
-    volumes:
-      - ./frontend:/app
+    # volumes:
+    #   - ./frontend:/app
     container_name: frontend
     environment:
       - NODE_ENV=development
