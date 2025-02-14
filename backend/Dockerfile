@@ -5,6 +5,7 @@ FROM node:20-bullseye
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libvips \
     libvips-dev \
+    libvips-tools \
     libheif-dev \
     libde265-dev \
     build-essential \
