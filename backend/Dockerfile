@@ -1,7 +1,7 @@
 # Use Node.js official image
 FROM node:20-bullseye
 
-# Install dependencies
+# Install dependencies for building libvips
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     meson \
@@ -18,14 +18,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# Install latest libvips from source (8.16.0) using Meson
+# Download and build libvips
 RUN curl -fsSL https://github.com/libvips/libvips/releases/download/v8.16.0/vips-8.16.0.tar.xz | tar xJ \
     && cd vips-8.16.0 \
-    && meson setup build \
-    && ninja -C build \
-    && ninja -C build install \
+    && meson setup build --prefix=/usr --buildtype=release \
+    && meson compile -C build \
+    && meson install -C build \
     && ldconfig \
-    && cd .. && rm -rf vips-*
+    && cd .. && rm -rf vips-8.16.0
+
 
 # Set working directory
 WORKDIR /app
