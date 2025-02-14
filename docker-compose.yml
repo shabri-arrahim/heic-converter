@@ -5,7 +5,7 @@ services:
     build: ./backend
     # volumes:
     #   - ./backend:/app
-    container_name: backend
+    container_name: heic-backend
     environment:
       - NODE_ENV=production
     restart: unless-stopped
@@ -14,7 +14,7 @@ services:
     build: ./frontend
     # volumes:
     #   - ./frontend:/app
-    container_name: frontend
+    container_name: heic-frontend
     environment:
       - NODE_ENV=development
     restart: unless-stopped
