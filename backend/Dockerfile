@@ -18,8 +18,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install latest libvips from source (8.14+)
-RUN curl -fsSL https://github.com/libvips/libvips/releases/download/v8.14.1/vips-8.14.1.tar.gz | tar xz \
-    && cd vips-8.14.1 \
+RUN curl -fsSL https://github.com/libvips/libvips/releases/download/v8.16.0/vips-8.16.0.tar.xz | tar xz \
+    && cd vips-8.16.0.tar.xz \
     && ./configure --prefix=/usr --enable-shared \
     && make -j$(nproc) \
     && make install \
