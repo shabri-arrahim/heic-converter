@@ -42,7 +42,7 @@ export default function HeicConverter() {
     } finally {
       setLoading(false); // Stop loading
       const endTime = performance.now(); // End time measurement
-      console.log(`Conversion process took ${(endTime - startTime) / 1000} seconds.`);
+      alert(`Conversion process took ${(endTime - startTime) / 1000} seconds.`);
     }
   };
   
