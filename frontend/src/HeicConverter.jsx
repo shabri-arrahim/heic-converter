@@ -20,20 +20,20 @@ export default function HeicConverter() {
 
     setLoading(true); // Start loading
     setConvertedImages([]); // Clear previous image
-  
     const formData = new FormData();
     files.forEach(file => formData.append('files', file));
     formData.append('format', format);
     formData.append('width', width);
-  
+
+    const startTime = performance.now(); // Start time measurement
     try {
       const response = await fetch('/api/convert', {  // Use relative URL
         method: 'POST',
         body: formData,
       });
-  
+
       if (!response.ok) throw new Error("Conversion failed");
-  
+
       const data = await response.json();
       setConvertedImages(Array.from(data.images));
     } catch (error) {
@@ -41,6 +41,8 @@ export default function HeicConverter() {
       alert("Failed to convert image.");
     } finally {
       setLoading(false); // Stop loading
+      const endTime = performance.now(); // End time measurement
+      console.log(`Conversion process took ${(endTime - startTime) / 1000} seconds.`);
     }
   };
   
